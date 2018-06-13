@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Computer Vision Final Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- custom CSS -->
+  <link href="css/web_custom.css" rel="stylesheet">
+
+  <!-- Font-Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+  <!-- Opening image -->
+  <div class="section_overcast">
+    <div class="title_text">
+      Using Early Analysis to Simplify Lane Tracking
+    </div>
+    <div class="author_text">
+      Yamini Gaur, Pavan Gundu, Takondwa Kakusa, Sudha Yellapantula
+    </div>
+  </div>
+  <!-- Abstract Page -->
+  <div class="section_paper">
+    <div class="sub_title_text">
+      Abstract
+    </div>
+    <div class="sub_section_text">
+      With the growing trends in autonomous vehicles, there is an increased need for computer vision in order to handle
+      multiple aspects of the general movement. In the most basic of case, though, computer vision is necessary for the
+      detection of lanes in order to allow the vehicle to effectively track
+      itself on the road. Though there are many different methods that could be used in order to accomplish this
+      they all share the same idea of applying the same algorithm on each frame of the image. We propose a ways of
+      simplifying this methodology by using the base algorithm as an early analysis and then using these points to
+      generalize the points in the next image.
+    </div>
+  </div>
+  <!-- Introduction Page -->
+  <div class="section_overcast">
+    <div class="sub_title_text">
+      Introduction
+    </div>
+    <div class="sub_section_text">
+      The ways in which computer vision can be used in vehicles ranges from actions that effect the direct movement to actions
+      those that are used to predict the movements of other vehicles and people. It is growingly seen as essential in the past
+      few years as more and more companies invest in this field, seeing it as the new wave of the future, and a step in the
+      right direction. In our group we have members who are interested in this sort of research and one member who is directly
+      doing research in this field, so we decided that it would be good to take a look at a known algorithm used to do one
+      aspect of the computer vision in vehicles, and that is lane detection. Lane detection is widely used and necessary when it
+      to autonomous vehicle travel, and there are many algorithms that go about competing for high accuracy while dealing with real
+      time speeds. For this we used the paper "Vision-Based Control of a Full-Size Car by Lane Detection" as a reference to the
+      current standards used for lane detection. From this paper, and analysing other similar such papers, we discovered that
+      they all had a habit of using fast, complex algorithms to amnipulate the images frame by frame. Therefore each new frame
+      was taken into consideration as though it were the first in the series, as no information was brought in from the previous
+      frame to help the process. This seemed too inefficient as each step of the algorithm would have to be redone each time, though
+      multiple steps could be skiped if previous data points were used. Because of this, we decided to implement a method that
+      would use the base algorithms as an early detection of the lines, while using a modified and simpler version of the algorithm
+      to act on the next frames. By doing this we hope to produce results as good as the original methodology, while cutting down
+      on the overall computation time.
+    </div>
+  </div>
+  <!-- Approach Page -->
+  <div class="section_paper">
+    <div class="sub_title_text">
+      Base Approach
+    </div>
+
+    <div class="sub_section_text">
+      The approach used for this project was taken from the paper:
+    </div>
+
+    <div class="sub_section_text" style="padding-top: 10px;padding-bottom: 10px;">
+      <a href="https://ece.usu.edu/downloadables/pdfs/student-papers/thesis/2017/Kunz-chase-ms-thesis-2017-A01210672.pdf">
+        Vision-Based Control of a Full-Size Car by Lane Detection
+      </a>
+    </div>
+
+    <div class="sub_section_text" style="padding-bottom: 30px;">
+      This approach follows six basic steps in order to get lines that need to be detected. The first of these is
+      the IPM stage, followed by filtering and thresholding. After this, local maxima are found of the and are used
+      to gain lines through line detection. After this spline detection is done on the lines that were found.
+    </div>
+  </div>
+    <!-- IPM Section -->
+  <div class="section_lavendar">
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="photos/original.png" alt="IPM Image" class="mini_image">
+        </div>
+        <div class="col-sm-4">
+          <div class="sub_sub_title_text" style="text-align: center;">
+            Inverse Perspective Mapping
+          </div>
+          <div class="sub_section_text">
+            The goal of inverse perspective mapping  (IPM)is to give a sort of birds eye view of the entire image, focussing
+            on the parts that are more essential of the later algorithms by removing unnecessary scenery. IPM also allows
+            for the lanes in the image to become more parralel, allowing for better line detection.
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/ipm.png" alt="IPM Image" class="mini_image">
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Filtering and Thresholding Section -->
+  <div class="section_paper">
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="photos/filtered.png" alt="IPM Image" class="mini_image">
+        </div>
+        <div class="col-sm-4">
+          <div class="sub_sub_title_text" style="text-align: center;">
+            Filtering and Thresholding
+          </div>
+          <div class="sub_section_text">
+            At this stage, the image that is gained from the previous stage is filtered using the gradient of the horizontal
+            Gaussian filter. This is used to obtain the vertical lines in the image. Thresholding is then used to get the
+            highest intensity lines in the image, which should predominantly be the lanes.
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/thresholded.png" alt="IPM Image" class="mini_image">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Line Fitting Section -->
+  <div class="section_lavendar">
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="photos/pixel_concat.png" alt="IPM Image" class="mini_image">
+        </div>
+        <div class="col-sm-4">
+          <div class="sub_sub_title_text" style="text-align: center;">
+            Non-Maxima Suppression and Line Fitting
+          </div>
+          <div class="sub_section_text">
+            For each column in the image, the total value of pixels is obtained and the local maxima of these are
+            taken as hotspots to look for. Vertical lines are then drawn at these columns and are clustered depending
+            on their proximity to each other. The new cluster centers, generated from the average of the locations in
+            the cluster, are then used as the new critical points. Bounding boxes are placed around these lines and
+            line fitting is done to get all the possible lines.
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/line fitting.png" alt="IPM Image" class="mini_image">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Spline Fitting  and Extension Section -->
+  <div class="section_paper">
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="photos/spline fitting.png" alt="IPM Image" class="mini_image">
+        </div>
+        <div class="col-sm-4">
+          <div class="sub_sub_title_text" style="text-align: center;">
+            Spline Fitting  and Extension
+          </div>
+          <div class="sub_section_text">
+            From these lines, spline fitting is done in order to get an approximation of the best lines to
+            choose as the lines for the lane. Once these are chosen, extension is used to extend the lines
+            to the ends of the frames in the calculated arc of the road. The IPM is then undone.In the final
+            result, blue coloring is used in order to highlight the lane that is tracked.
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/extension.png" alt="IPM Image" class="mini_image">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modifications and Results Section -->
+  <div class="section_overcast">
+    <div class="sub_title_text">
+      Modifications and Results
+    </div>
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="sub_section_text">
+            <p>
+              Using the algorithm described in the previous section as a base, we went to look at reducing
+              the computing cost by reducing the amount of work done in concurrent frames. In order to do
+              this, we started off by running the base algorithm on the first frame. After the points for the
+              lanes had been thoroughly obtained, the second frame is then filtered as it was before, but on
+              a not IPM transformed image. The detected points in the first frame are then overlayed on top
+              of the image from the second frame. Bounding boxes are then created around the overlayed points
+              and all the pixels inside this box from the second frame are used as inliers. Spline fitting is
+              done again to get the final points for the new lane and extension follows just like before. The
+              results of this can be seen on the right and the steps are detailed in the qualitative results.
+          </p>
+          <p>
+            These modifications bring a few advantages right off the bat. The largest of these is the removal
+            the IPM stage, Non-Maxima Suppression stage and the line fitting stage from consecutive frames,
+            which all encompass large parts of the computations that need to occur. This is especially true for
+            the IPM stage as it is computationally heaving and must occur at the beginning and end of the procedure.
+            A large reason, we believe that this works is due to the high frame rate of the cameras used on these
+            vehicles allowing for the quick progression of the images. This causes little change to occur between
+            consecutive frames, allowing for higher accuracy. This sort of modification also helps sort out problems
+            that could occur when looking at lanes that have shadows over them, which is a problem that came up
+            as we were trying to implement the base system. By using the prior information, you can already gain
+            a ball park etimate of where to start and fit the results towards that.
+          </p>
+          <p>
+            As it can be seen by the result on the right, the procedure is accurate and smooth. When testing these
+            modifications compared to the base system, we used 50 frames of a car driving on a one lane road. From
+            our results we can see that the first takes a much longer time to compute than the frames that follow. This
+            shows that the algorithm that we are using does definitely decrease both the computational and time
+            costs that are in the base approach alone.
+            We attribute part of this to being that the system we are running the process on may not be as powerful
+            as the system the authors of the paper use, as well as the fact that the transformation for the IPM is
+            the most time and computationally intensive part.
+          </p>
+          <p>
+            Looking at some of the figures in the base approach section it can be seen that the IPM that we created
+            is not as flushed out as the one used in the paper, but it seemed to be able to get the work done for
+            what was necessary. The implementation of the IPM, though algorithmically the same, was most likely not
+            as optimized as the version used in the paper, and we believe that this could be another reason for such
+            a large time difference.
+          </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/car_animation.gif" alt="IPM Image" class="mini_image" style="padding-top: 50px;padding-bottom: 40px;">
+          <img src="photos/final.gif" alt="IPM Image" class="mini_image" style="padding-top: 40px;padding-bottom: 40px;">
+        </div>
+      </div>
+      <div class="row">
+        <img src="photos/timing.png" alt="IPM Image" class="mini_image">
+      </div>
+    </div>
+  </div>
+  <!-- Qualitative Results Section -->
+  <div class="section_lavendar">
+    <div class="sub_title_text">
+      Qualitative Results
+    </div>
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;">
+      <div class="row">
+        <div class="col-sm-6">
+          <img src="photos/impro1.png" alt="IPM Image" class="mini_image">
+          <div class="sub_image_text">
+            First frame with lines obtained from the papers algorithm
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img src="photos/impro2.png" alt="IPM Image" class="mini_image">
+          <div class="sub_image_text">
+            First frame after filtration
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 30px;">
+        <div class="col-sm-4">
+          <img src="photos/impro3.png" alt="IPM Image" class="mini_image">
+          <div class="sub_image_text">
+            Second frame with the first points overlayed
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/impro4.png" alt="IPM Image" class="mini_image">
+          <div class="sub_image_text">
+            Second frame with new spline fitting
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="photos/impro5.png" alt="IPM Image" class="mini_image">
+          <div class="sub_image_text">
+            Final result
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Conclusion Section -->
+  <div class="section_paper">
+    <div class="sub_title_text">
+      Conclusion and Future Work
+    </div>
+    <div class="sub_section_text">
+      In the end we can see that there is a great need for lane detection with the growth of autonomous vehicles.
+      As new systems develop, it is essential that they are not only accurate, but take a real time and efficient
+      manner in order to get the most optimal results. The modifications we have made in this discussion definitely
+      try and accomplish this and are well on their way to improving the overall efficiency of the system. There
+      are still many complications that can undoubtably occur though. For example, the test on these algorithms were
+      done on single lane roads, removing the need to test for otherlanes being detected. There are also no other
+      cars or obstacles in the road to demonstrate how these could effect the detection possibilities. To sum it
+      all up, its easy to see that there are many different aspects that still need to be taken into consideration
+      before work in this field can be considered complete.
+    </div>
+  </div>
+
+  <div class="section_overcast" style="padding-top: 3vh">
+    <div class="sub_title_text">
+      References
+    </div>
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;line-height: 50px;border-style: solid;">
+      <div class="sub_section_text">
+        <p>
+        [1] M. Aly, "Real time detection of lane markers in urban streets," in 2008 IEEE Intelligent Vehicles Symposium, June 2008, pp. 7-12.
+        </p>
+        <p>
+        [2] Lin, Chien-Chuan; Wang, Ming-Shi.	2012. "A Vision Based Top-View Transformation Model for a Vehicle Parking Assistant." Sensors 12, no. 4: 4431-4446.
+        </p>
+        <p>
+        [3] A. A. Assidiq, O. O. Khalifa, M. R. Islam, and S. Khan, "Real time lane detection for autonomous vehicles," in 2008 International Conference on Computer and Communication Engineering, May 2008, pp. 82-88.
+        </p>
+        <p>
+        [4] Oliveira, M., Santos, V. and Sappa, A. (2015). Multimodal inverse perspective mapping. Information Fusion, 24, pp.108-121.
+        </p>
+      </div>
+    </div>
+    <div class="container" style="padding-bottom: 15px;padding-top: 15px;line-height: 50px;border-style: solid;margin-top: 20px;">
+      <div class="sub_section_text" style="text-align:center">
+        The paper we have based our work on was written by N. Chase Kunz. The data obtained, such as the test track images, are from  the Electric
+        Vehicle Roadway and Research Facility (EVR) at Utah State University.
+      </div>
+      <div class="row" style="line-height: 25px;">
+        <div class="col-sm-4" style="text-align: right;">
+          <a href="https://ece.usu.edu/downloadables/pdfs/student-papers/thesis/2017/Kunz-chase-ms-thesis-2017-A01210672.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-sm-8">
+          <div class="sub_section_text" style="vertical-align: middle;">
+            The work done on this page is based on the work done in the following paper
+          </div>
+        </div>
+      </div>
+      <div class="row" style="line-height: 25px;">
+        <div class="col-sm-4" style="text-align: right;">
+          <a href="docs/Using Early Analysis to Simplify Lane Tracking.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-sm-8">
+          <div class="sub_section_text" style="vertical-align: middle;">
+            A presentation on the work we have done can be seen here
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section_paper" style="padding-top: 10p">
+
+  </div>
+</div>
+</body>
+</html>
