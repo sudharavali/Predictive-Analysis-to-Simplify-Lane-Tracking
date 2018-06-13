@@ -1,0 +1,93 @@
+.title_text {
+  font-family: "ScotchRomanMT", serif;
+  position: relative;
+  font-size: 38px;
+  top: 13%;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.author_text {
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  position: relative;
+  font-size: 15px;
+  top: 13%;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+
+.sub_title_text {
+  font-family: "ScotchRomanMT", serif;
+  position: relative;
+  font-size: 30px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.sub_sub_title_text {
+  font-family: "ScotchRomanMT", serif;
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  text-align: left;
+  padding-bottom: 12px;
+}
+
+.custom_sub_section {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+.sub_section_text {
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  position: relative;
+  font-size: 15px;
+  display: block;
+  text-align: justify;
+}
+
+.section_overcast {
+  padding-left: 11vw;
+  padding-right: 11vw;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+  background-color: white;
+  color: #393939;
+}
+
+.section_lavendar {
+  padding-left: 11vw;
+  padding-right: 11vw;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+  background-color: #6d7993;
+  color: #dadfe1;
+}
+
+.section_paper {
+  padding-left: 11vw;
+  padding-right: 11vw;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+  background-color: #d5d5d5;
+  color: #393939;
+}
+
+.mini_image {
+  display: block;
+  width: 100%
+}
+
+.sub_image_text {
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  position: relative;
+  font-size: 18px;
+  display: block;
+  text-align: center;;
+}
